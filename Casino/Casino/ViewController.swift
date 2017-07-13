@@ -15,7 +15,7 @@ class ViewController: UIViewController , UIPickerViewDataSource, UIPickerViewDel
     
     @IBOutlet weak var machineImageView: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
-    @IBOutlet weak var motImageView: UIImageView!
+    @IBOutlet weak var barImageView: UIImageView!
     @IBOutlet weak var userIndicatorlabel: UILabel!
     @IBOutlet weak var cashImageView: UIImageView!
     @IBOutlet weak var cashToRiskLabel: UILabel!
@@ -81,6 +81,7 @@ class ViewController: UIViewController , UIPickerViewDataSource, UIPickerViewDel
     func randomSelectRow(in comp : Int){
         let r = Int(arc4random_uniform(UInt32(8 * images.count))) + images.count
         pickerView.selectRow(r, inComponent: comp, animated: true)
+        
     }
     
     
@@ -133,20 +134,20 @@ class ViewController: UIViewController , UIPickerViewDataSource, UIPickerViewDel
     }
     
     // when spining
-    @IBAction func spinMotAction(_ sender: UITapGestureRecognizer) {
+    @IBAction func spinBarAction(_ sender: UITapGestureRecognizer) {
         spinAction()
     }
     
     func spinAction(){
-        motImageView.isUserInteractionEnabled = false // disable clicking
+        barImageView.isUserInteractionEnabled = false // disable clicking
         // animation of bandit handle
-        animate(view: motImageView, images: #imageLiteral(resourceName: "mot").spriteSheet(cols: 14, rows: 1), duration: 0.5, repeatCount: 1)
+        animate(view: barImageView, images: #imageLiteral(resourceName: "mot").spriteSheet(cols: 14, rows: 1), duration: 0.5, repeatCount: 1)
         userIndicatorlabel.text = ""
         Model.instance.play(sound: Constant.spin_sound)
         roll()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.checkWin()
-            self.motImageView.isUserInteractionEnabled = true
+            self.barImageView.isUserInteractionEnabled = true
         }
         
     }
